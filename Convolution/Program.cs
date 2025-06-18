@@ -45,17 +45,17 @@ class Program
         var wo = new WaveOutEvent();
         var stream = new BufferedWaveProvider(format);
 
-        var reverb = new Reverb(30, 8, 1f, 0.75f);
+        var reverb = new Reverb(30, 8, 0.5f);
         reverb.Configure(format.SampleRate);
 
         //Console.WriteLine(Marshal.SizeOf(reverb));
         
         wo.NumberOfBuffers = 2;
         wo.Init(stream);
-        //wo.PlaybackStopped += (s, e) => wo.Play();
+        wo.PlaybackStopped += (s, e) => wo.Play();
         wo.Play();
 
-        wi.BufferMilliseconds = 50;
+        wi.BufferMilliseconds = 35;
         wi.NumberOfBuffers = 3;
 
         wi.DataAvailable += (_, args) =>
@@ -77,8 +77,8 @@ class Program
 
             var delta = DateTime.Now - t;
 
-            //Console.WriteLine($"{args.Buffer.Length} samples processed in {delta.TotalMilliseconds} milliseconds");
-            wo.Play();
+            Console.WriteLine($"{args.Buffer.Length} samples processed in {delta.TotalMilliseconds} milliseconds");
+            //wo.Play();
         };
         
         wi.RecordingStopped += (_, args) => wi.StartRecording();

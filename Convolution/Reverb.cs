@@ -9,11 +9,10 @@ class Reverb
     private int _channels;
     private int _steps;
 
-    private float _dry;
     private float _wet;
     private float _roomSize;
 
-    public Reverb(float roomSizeMs, float rt60, float dry = 0, float wet = 1)
+    public Reverb(float roomSizeMs, float rt60, float wet = 1)
     {
         //_channels = 32;
         //_steps = 16;
@@ -24,13 +23,12 @@ class Reverb
         _channels = 64;
         _steps = 4;
         
-        _dry = dry;
         _wet = wet;
         _roomSize = roomSizeMs;
 
         _feedback = new MultiChannelMixedFeedback(_channels, _roomSize);
         _diffuser = new Diffuser(_channels, _steps, _roomSize);
-        _filter = new CutFilter(600, 2500);
+        _filter = new CutFilter(100, 5500);
 
         double typicalLoopMs = roomSizeMs * 1.5;
         double loopsPerRt60 = rt60 / (typicalLoopMs * 0.001);
@@ -48,8 +46,6 @@ class Reverb
 
     public float[] Process(float sample)
     {
-        sample = _filter.Process(sample);
-        
         float[] input = new float[_channels];
         for (int i = 0; i < _channels; i++)
             input[i] = sample;
@@ -57,12 +53,13 @@ class Reverb
         float[] diffuse = _diffuser.Process(input);
         float[] last = _feedback.Process(diffuse);
         float[] mix = new float[2];
+        float dry = 1 - _wet;
         for (int c = 0; c < _channels; ++c)
         {
-            last[c] = _dry * sample * 2 + _wet * last[c];
+            last[c] = dry * sample + _wet * last[c];
             mix[c % 2] += last[c];
         }
-
+        
         mix[0] *= 2f / _channels;
         mix[1] *= 2f / _channels;
 

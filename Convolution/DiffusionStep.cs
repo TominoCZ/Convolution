@@ -4,7 +4,7 @@ class DiffusionStep
 {
     private Hadamard _matrix;
     private DetunedDelay[] _delays;
-    private LowPassFilter[] _filters;
+    private CutFilter[] _filters;
     private int[] _polarity;
     private int _channels;
     private float _msRange;
@@ -13,7 +13,7 @@ class DiffusionStep
     {
         _matrix = new Hadamard(channels, channels);
         _delays = new DetunedDelay[channels];
-        _filters = new LowPassFilter[channels];
+        _filters = new CutFilter[channels];
         _polarity = new int[channels];
         _channels = channels;
         _msRange = msRange;
@@ -37,7 +37,7 @@ class DiffusionStep
 
             _delays[c] = delay;
             _polarity[c] = c % 2;
-            _filters[c] = new LowPassFilter(25000);
+            _filters[c] = new CutFilter(100, 25000);
             _filters[c].Configure(sampleRate);
         }
     }
