@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Convolution", "Convolution\Convolution.csproj", "{ADAD2EC3-AB29-4067-A9BC-5A7241DE2A6E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ADAD2EC3-AB29-4067-A9BC-5A7241DE2A6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADAD2EC3-AB29-4067-A9BC-5A7241DE2A6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADAD2EC3-AB29-4067-A9BC-5A7241DE2A6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADAD2EC3-AB29-4067-A9BC-5A7241DE2A6E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
