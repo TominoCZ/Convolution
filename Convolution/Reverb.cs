@@ -28,7 +28,7 @@ class Reverb
 
         _feedback = new MultiChannelMixedFeedback(_channels, _roomSize);
         _diffuser = new Diffuser(_channels, _steps, _roomSize);
-        _filter = new CutFilter(100, 5500);
+        _filter = new CutFilter(80, 5500);
 
         double typicalLoopMs = roomSizeMs * 1.5;
         double loopsPerRt60 = rt60 / (typicalLoopMs * 0.001);

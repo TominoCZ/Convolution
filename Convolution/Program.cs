@@ -43,7 +43,7 @@ class Program
         var wo = new WaveOutEvent();
         var stream = new BufferedWaveProvider(format);
 
-        var reverb = new Reverb(30, 8, 0.5f);
+        var reverb = new Reverb(30, 8, 0.45f);
         reverb.Configure(format.SampleRate);
         
         wo.NumberOfBuffers = 2;
