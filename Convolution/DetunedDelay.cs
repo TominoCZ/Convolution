@@ -55,6 +55,9 @@ class DetunedDelay
 
     public float Read(int offset = 0)
     {
+        if (offset == 0)
+            return _buffer[_index];
+        
         return _buffer[(_index + Length + offset) % Length];
     }
 

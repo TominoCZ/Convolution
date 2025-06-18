@@ -28,8 +28,6 @@ class Program
     {
         if (File.Exists(outputPath))
             File.Delete(outputPath);
-        
-        //float[] input = LoadMonoWav(inputPath);
 
         var format = new WaveFormat(44100, 2);
         var afw = new WaveFileWriter(outputPath, format);
@@ -47,15 +45,13 @@ class Program
 
         var reverb = new Reverb(30, 8, 0.5f);
         reverb.Configure(format.SampleRate);
-
-        //Console.WriteLine(Marshal.SizeOf(reverb));
         
         wo.NumberOfBuffers = 2;
         wo.Init(stream);
         wo.PlaybackStopped += (s, e) => wo.Play();
         wo.Play();
 
-        wi.BufferMilliseconds = 35;
+        wi.BufferMilliseconds = 50;
         wi.NumberOfBuffers = 3;
 
         wi.DataAvailable += (_, args) =>
@@ -88,32 +84,6 @@ class Program
         {
             Thread.Sleep(100);
         }
-
-        /*
-
-        long written = 0;
-        while (written < input.Length)
-        {
-            if (stream.BufferedDuration > TimeSpan.FromSeconds(1))
-                continue;
-
-            for (int i = 0; i < 44100 && (i + written) < input.Length; i++)
-            {
-                var sample = input[written];
-
-                var output = reverb.Process(sample);
-
-                stream.AddSample(output[0]);
-                stream.AddSample(output[1]);
-
-                afw.WriteSample(output[0]);
-                afw.WriteSample(output[1]);
-
-                written++;
-            }
-        }
-
-        afw.Close();*/
     }
 
     float[] LoadMonoWav(string path)
